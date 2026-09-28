@@ -1,7 +1,5 @@
 <script setup lang="ts">
-import HelloWorld from './components/HelloWorld.vue'
-import TheWelcome from './components/TheWelcome.vue'
-import { ref, computed, h } from 'vue'
+import { ref, computed } from 'vue'
 
 interface Movie {
   id: number
@@ -38,11 +36,13 @@ function addMovie(movie: Movie): void {
 		type="text"
 		placeholder="Search for a movie..."
 	/>
-	<ul v-for="movie in filteredMovies" :key="movie.id">
-		<li>{{ movie.title }} ({{ movie.year }})</li>
-		<button @click="addMovie(movie)">
-			Add to Watchlist
-		</button>
+	<ul v-if="filteredMovies.length > 0">
+		<li v-for="movie in filteredMovies" :key="movie.id">{{ movie.title }} ({{ movie.year }})
+			<button @click="addMovie(movie)">Add to Watchlist</button>
+		</li>
+	</ul>
+	<ul v-else>
+		<li>No movies found</li>
 	</ul>
 	<h2 v-if="watchlist.length > 0">Watchlist {{ watchlist.length }}</h2>
 	<h2 v-else>No movies in watchlist</h2>
