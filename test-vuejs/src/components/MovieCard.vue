@@ -11,8 +11,13 @@ const emit = defineEmits<{
 </script>
 
 <template>
-  <li>
-    {{ movie.title }} ({{ movie.year }})
-    <button @click="emit('add', movie)">Add to Watchlist</button>
+  <li class="movie-card">
+    <RouterLink :to="`/movie/${movie.id}`" class="movie-title">
+      {{ movie.title }} ({{ movie.year }})
+    </RouterLink>
+    <button @click="emit('add', movie)">Add</button>
   </li>
 </template>
+
+<style>
+</style>
