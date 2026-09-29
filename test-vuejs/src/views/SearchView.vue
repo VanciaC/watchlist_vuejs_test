@@ -57,6 +57,6 @@ watch(query, (newQuery) => {
 	</ul>
 </template>
 
-<style scoped>
+<style>
 
 </style>

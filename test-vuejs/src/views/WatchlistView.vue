@@ -16,12 +16,5 @@
     </ul>
 </template>
 
-<style scoped>
-    h2 {
-    margin-bottom: 1.25rem;
-    }
-
-    .empty-state {
-    color: var(--color-text-muted);
-    }
+<style>
 </style>

@@ -13,6 +13,6 @@ const watchlistStore = useWatchlistStore()
 	<RouterView />
 </template>
 
-<style scoped>
+<style>
 
 </style>
