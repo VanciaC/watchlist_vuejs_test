@@ -4,9 +4,10 @@ import MovieCard from './components/MovieCard.vue'
 import SearchBar from './components/SearchBar.vue'
 import type { Movie } from '@/types/movie'
 import { searchMovies } from '@/api/omdb'
+import { useWatchlistStore } from '@/stores/watchlist'
 
+const watchlistStore = useWatchlistStore()
 const query = ref<string>('')
-const watchlist = ref<Movie[]>([])
 const results = ref<Movie[]>([])
 const isLoading = ref<boolean>(false)
 const error = ref<string | null>(null)
@@ -41,11 +42,6 @@ watch(query, (newQuery) => {
   	}, 500)
 })
 
-function addMovie(movie: Movie): void {
-  if (!watchlist.value.some((m) => m.id === movie.id)) {
-    watchlist.value.push(movie)
-  }
-}
 </script>
 
 <template>
@@ -55,14 +51,15 @@ function addMovie(movie: Movie): void {
 	<p v-else-if="query.trim() === ''">Please enter a movie name</p>
 	<p v-else-if="results.length === 0">No results found</p>
 	<ul v-else>
-		<MovieCard v-for="movie in results" :key="movie.id" :movie="movie" @add="addMovie" />
+		<MovieCard v-for="movie in results" :key="movie.id" :movie="movie" @add="watchlistStore.add(movie)" />
 	</ul>
 
-	<h2 v-if="watchlist.length > 0">Watchlist {{ watchlist.length }}</h2>
+	<h2 v-if="watchlistStore.count > 0">Watchlist {{ watchlistStore.count }}</h2>
 	<h2 v-else>No movies in watchlist</h2>
-	<ul v-if="watchlist.length > 0">
-		<li v-for="movie in watchlist" :key="movie.id">
+	<ul v-if="watchlistStore.count > 0">
+		<li v-for="movie in watchlistStore.movies" :key="movie.id">
 			{{ movie.title }} ({{ movie.year }})
+			<button @click="watchlistStore.remove(movie.id)">Remove</button>
 		</li>
 	</ul>
 </template>
