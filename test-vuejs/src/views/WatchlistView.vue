@@ -4,16 +4,24 @@
 </script>
 
 <template>
-	<h2 v-if="watchlistStore.count > 0">Watchlist {{ watchlistStore.count }}</h2>
-	<h2 v-else>No movies in watchlist</h2>
-	<ul v-if="watchlistStore.count > 0">
-		<li v-for="movie in watchlistStore.movies" :key="movie.id">
-			{{ movie.title }} ({{ movie.year }})
-			<button @click="watchlistStore.remove(movie.id)">Remove</button>
-		</li>
-	</ul>
+    <h2>Watchlist ({{ watchlistStore.count }})</h2>
+
+    <p v-if="watchlistStore.count === 0" class="empty-state">No movies in watchlist</p>
+
+    <ul v-else>
+        <li v-for="movie in watchlistStore.movies" :key="movie.id" class="movie-card">
+        <span>{{ movie.title }} ({{ movie.year }})</span>
+        <button class="danger" @click="watchlistStore.remove(movie.id)">Remove</button>
+        </li>
+    </ul>
 </template>
 
 <style scoped>
+    h2 {
+    margin-bottom: 1.25rem;
+    }
 
+    .empty-state {
+    color: var(--color-text-muted);
+    }
 </style>
