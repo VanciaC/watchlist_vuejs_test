@@ -1,5 +1,8 @@
 # test-vuejs
 
+Just a simple app to test basics of VueJS. 
+A Watchlist with API call (OMDB) to learn every concept of VueJS (reactivity, directives, components, ...) 
+
 This template should help get you started developing with Vue 3 in Vite.
 
 ## Recommended IDE Setup
